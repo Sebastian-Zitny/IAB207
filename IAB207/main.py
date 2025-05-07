@@ -1,7 +1,18 @@
 from flask import Flask, render_template
-
+from createEvents import init_createEvents
+from checkOut import init_checkOut
+from myBooking import init_myBooking
+from eventDetail import init_eventDetail
 
 app = Flask(__name__)
+
+init_createEvents(app)
+
+init_checkOut(app)
+
+init_myBooking(app)
+
+init_eventDetail(app)
 
 @app.route('/')
 def default():
@@ -10,24 +21,6 @@ def default():
 @app.route('/index.html')
 def Home():
     return render_template('index.html')
-
-@app.route('/createEvents.html')
-def createEvents():
-    return render_template('createEvents.html')
-
-@app.route('/eventDetail.html')
-def eventDetail():
-    return render_template('eventDetail.html')
-
-@app.route('/myBooking.html')
-def myBooking():
-    return render_template('myBooking.html')
-
-@app.route('/checkOut.html')
-def checkOut():
-    return render_template('checkOut.html')
-
-
 
 
 if __name__ == '__main__':
