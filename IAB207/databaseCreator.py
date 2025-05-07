@@ -2,6 +2,7 @@ from flask import Flask
 from flask_sqlalchemy import SQLAlchemy
 from datetime import datetime
 
+<<<<<<< HEAD
 app = Flask(__name__)
 app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///app_database.db'
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
@@ -18,6 +19,15 @@ class User(db.Model):
     bookings = db.relationship('Booking', backref='user', lazy=True)
     comments = db.relationship('Comment', backref='user', lazy=True)
     events = db.relationship('Event', backref='owner', lazy=True)
+=======
+
+engine = create_engine('sqlite:///database.db', echo=True)
+Base = declarative_base()
+
+
+class User(Base):
+    __tablename__ = 'User'
+>>>>>>> 2cad1d684b0d978cb9e88a804e0c548abb944f6a
 
 class Event(db.Model):
     id = db.Column(db.Integer, primary_key=True)
@@ -42,12 +52,16 @@ class Booking(db.Model):
     price = db.Column(db.Float)
     date_booked = db.Column(db.DateTime, default=datetime.utcnow)
 
+<<<<<<< HEAD
 class Comment(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     content = db.Column(db.Text, nullable=False)
     user_id = db.Column(db.Integer, db.ForeignKey('user.id'), nullable=False)
     event_id = db.Column(db.Integer, db.ForeignKey('event.id'), nullable=False)
     date_posted = db.Column(db.DateTime, default=datetime.utcnow)
+=======
+Base.metadata.create_all(engine)
+>>>>>>> 2cad1d684b0d978cb9e88a804e0c548abb944f6a
 
 with app.app_context():
     db.create_all()
