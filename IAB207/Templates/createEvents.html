@@ -24,9 +24,17 @@
               <li class="nav-item"><a class="nav-link " href="index.html">Home</a></li>
               <li class="nav-item"><a class="nav-link active" href="createEvents.html">Create Events</a></li>
               <li class="nav-item"><a class="nav-link" href="myBooking.html">My Bookings</a></li>
-              <li class="nav-item"><a class="nav-link" href="#">Log in</a></li>
+               {% if session.user_id %}
+    <li class="nav-item">
+      <a class="nav-link" href="/logout">Log out</a>
+    </li>
+  {% else %}
+    <li class="nav-item">
+      <a class="nav-link" href="logIn.html">Log in</a>
+    </li>
+  {% endif %}
             </ul>
-            <a class="btn btn-primary signup-btn" href="#">Sign up</a>
+            <a class="btn btn-primary signup-btn" href="Register.html">Sign up</a>
           </div>
         </div>
       </nav>

@@ -1,11 +1,11 @@
 import os
-from flask import Flask, render_template
+from flask import Flask, render_template, session, flash, redirect
 from createEvents import init_createEvents
 from checkOut import init_checkOut
 from myBooking import init_myBooking
 from eventDetail import init_eventDetail
 from Register import init_Register
-from logIn import init_logIn
+from logIn import init_logIn, init_logOut
 from databaseCreator import db 
 
 
@@ -46,6 +46,11 @@ def default():
 def Home():
     return render_template('index.html')
 
+@app.route('/logout')
+def logOut():
+    session.clear()
+    flash("You’ve been logged out.", "success")
+    return redirect('/')   # back to Home
 
 if __name__ == '__main__':
     app.run(debug=False, use_reloader=False)

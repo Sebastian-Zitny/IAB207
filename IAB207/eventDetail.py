@@ -1,7 +1,15 @@
 # eventDetail.py
-from flask import render_template, request, redirect, url_for
+from flask import (
+    render_template,
+    request,
+    redirect,
+    url_for,
+    session,    # ← add this
+    flash       # ← and this if you want to flash the error
+)
 from datetime import datetime
 from app.forms import CommentForm
+from databaseCreator import db, Comment as DBComment
 
 # Event and Comment Classes
 class Comment:
@@ -35,13 +43,40 @@ def init_eventDetail(app):
     def event_detail(event_id):
         form = CommentForm()
         event = events.get(event_id)
-
         if not event:
             return "Event not found", 404
 
         if form.validate_on_submit():
-            comment = Comment("Anonymous", form.text.data, datetime.now().strftime("%b %d, %Y"))
-            event.comments.append(comment)
+            # **Only** on POST do we require login
+            if 'user_id' not in session:
+                flash("You must be logged in to leave a comment.", "error")
+                return redirect(url_for('logIn'))
+            
+            # save the comment
+            new_comment = DBComment(
+                user_id     = session['user_id'],
+                event_id    = int(event_id),
+                content     = form.text.data,
+                date_posted = datetime.utcnow()
+            )
+            db.session.add(new_comment)
+            db.session.commit()
             return redirect(url_for('event_detail', event_id=event_id))
 
-        return render_template('eventDetail.html', event=event, comments=event.comments, form=form)
+        # Always load persisted comments
+        db_comments = DBComment.query.filter_by(
+            event_id=int(event_id)
+        ).all()
+        comments = [
+            Comment(c.user.username, c.content, c.date_posted.strftime("%b %d, %Y"))
+            for c in db_comments
+        ]
+
+        # Render page: if user logged-in, show the form; otherwise prompt them
+        return render_template(
+            'eventDetail.html',
+            event     = event,
+            comments  = comments,
+            form      = form,
+            can_comment = ('user_id' in session)
+        )

@@ -1,4 +1,4 @@
-from flask import render_template, request, redirect, url_for, flash, session
+from flask import render_template, request, redirect, url_for, flash, session, redirect
 from databaseCreator import db, User
 
 def init_logIn(app):
@@ -22,3 +22,10 @@ def init_logIn(app):
                 return redirect(url_for('logIn'))
 
         return render_template('logIn.html')
+    
+def init_logOut(app):
+    @app.route('/logout')
+    def logOut():
+        session.clear()
+        flash("You’ve been logged out.", "success")
+        return redirect('/')   # back to Home
