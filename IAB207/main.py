@@ -3,6 +3,8 @@ from createEvents import init_createEvents
 from checkOut import init_checkOut
 from myBooking import init_myBooking
 from eventDetail import init_eventDetail
+from Register import init_Register
+from logIn import init_logIn
 
 app = Flask(__name__)
 
@@ -13,6 +15,10 @@ init_checkOut(app)
 init_myBooking(app)
 
 init_eventDetail(app)
+
+init_Register(app)
+
+init_logIn(app)
 
 @app.route('/')
 def default():

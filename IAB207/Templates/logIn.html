@@ -22,29 +22,36 @@
           <li class="nav-item"><a class="nav-link " href="index.html">Home</a></li>
           <li class="nav-item"><a class="nav-link" href="createEvents.html">Create Events</a></li>
           <li class="nav-item"><a class="nav-link active" href="myBooking.html">My Bookings</a></li>
-          <li class="nav-item"><a class="nav-link" href="#">Log in</a></li>
+          <li class="nav-item"><a class="nav-link" href="logIn.html">Log in</a></li>
         </ul>
-        <a class="btn btn-primary signup-btn" href="#">Sign up</a>
+        <a class="btn btn-primary signup-btn" href="Register.html">Sign up</a>
       </div>
     </div>
   </nav>
 
 <!-- Booking History -->
 <div class="container mt-5">
-  <h2 class="fw-bold mb-4"></h2>
+  <h2 class="fw-bold mb-4">Login details</h2>
 
   <div class="row g-4">
     <!-- Booking Card -->
     <div class="col-md-6">
-      <div class="card shadow-sm">
-        <img src="static/img/Tech image.jpg" alt="Event Image" />
-        <div class="card-body">
-          <h5 class="card-title fw-bold">Technology Executive Summit</h5>
-          <p class="card-text"><strong>Order ID:</strong> #TX123456</p>
-          <p class="card-text text-muted"><i class="bi bi-calendar-event"></i> Booked on: 15 March 2025, 10:30 AM</p>
-        </div>
-      </div>
-    </div>
+	  <div class="form-group pb-5">
+		<label for="Username">Username</label>
+		<input type="Username" class="form-control" id="Username" placeholder="Enter Username">
+	  </div>
+	  
+	  <div class="form-group pb-5">
+		<label for="Password">Password</label>
+		<input type="Password" class="form-control" id="Password" placeholder="Enter Password">
+	  </div>
+	  
+
+	  <div class="row text-center text-white pt-2" >
+		<td><a href="ViewEvents.html"><button type="button" class="btn btn-primary style=" style="font-size: 30px;" >Submit</button></a></td>
+	  </div> 
+
+
 
   </div>
 </div>
