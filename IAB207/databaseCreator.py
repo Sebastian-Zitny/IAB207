@@ -3,16 +3,14 @@ from flask import Flask
 from flask_sqlalchemy import SQLAlchemy
 from datetime import datetime
 
-app = Flask(__name__)
 
-
+# Configure SQLite database
 base_dir = os.path.abspath(os.path.dirname(__file__))
-app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///' + os.path.join(base_dir, 'database.db')
-app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
-
-db = SQLAlchemy(app)
 
 
+db = SQLAlchemy()
+
+# --- Models ---
 class User(db.Model):
     user_id = db.Column(db.Integer, primary_key=True)
     username = db.Column(db.String(100), nullable=False, unique=True)
@@ -33,7 +31,7 @@ class Event(db.Model):
     venue = db.Column(db.String(200))
     image_url = db.Column(db.String(300))
     category = db.Column(db.String(50))
-    status = db.Column(db.String(20))  
+    status = db.Column(db.String(20))  # Open, Cancelled, Sold Out, Inactive
     owner_id = db.Column(db.Integer, db.ForeignKey('user.user_id'), nullable=False)
     bookings = db.relationship('Booking', backref='event', lazy=True)
     comments = db.relationship('Comment', backref='event', lazy=True)
@@ -56,6 +54,3 @@ class Comment(db.Model):
     date_posted = db.Column(db.DateTime, default=datetime.utcnow)
 
 
-with app.app_context():
-    db.create_all()
-    print("Database and tables created successfully.")

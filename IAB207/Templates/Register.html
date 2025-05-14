@@ -29,6 +29,16 @@
     </div>
   </nav>
 
+{% with messages = get_flashed_messages(with_categories=true) %}
+	{% if messages %}
+		<ul>
+			{% for category, message in messages %}
+				<li class="{{ category }}">{{ message }}</li>
+			{% endfor %}
+		</ul>
+	{% endif %}
+{% endwith %}
+
 <!-- Booking History -->
 <div class="container mt-5">
   <h2 class="fw-bold mb-4">Login details</h2>
@@ -36,26 +46,18 @@
   <div class="row g-4">
     <!-- Booking Card -->
     <div class="col-md-6">
-	  <div class="form-group pb-5">
+	
+	  <form method="POST">
 		<label for="Username">Username</label>
-		<input type="Username" class="form-control" id="Username" placeholder="Enter Username">
-	  </div>
-	  
-	  <div class="form-group pb-5">
+		<input type="text" class="form-control" name="username" id="username" placeholder="Enter Username" required>
 		<label for="Email">Email</label>
-		<input type="Email" class="form-control" id="Email" placeholder="Enter Email">
-	  </div>
-	  
-	  <div class="form-group pb-5">
+		<input type="email" class="form-control" name="email" id="email" placeholder="Enter Email" required>
 		<label for="Password">Password</label>
-		<input type="Password" class="form-control" id="Password" placeholder="Enter Password">
-	  </div>
-	  
+		<input type="Password" class="form-control" name="password" id="password" placeholder="Enter Password" required>
 
-	  <div class="row text-center text-white pt-2" >
-		<td><a href="ViewEvents.html"><button type="button" class="btn btn-primary style=" style="font-size: 30px;" >Submit</button></a></td>
-	  </div> 
-
+		<button type="submit">Register</button>
+	  </form>
+		
   </div>
 </div>
 
