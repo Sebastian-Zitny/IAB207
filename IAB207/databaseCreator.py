@@ -1,7 +1,7 @@
 import os
-from flask import Flask
+
 from flask_sqlalchemy import SQLAlchemy
-from datetime import datetime
+
 
 
 # Configure SQLite database
@@ -9,6 +9,7 @@ base_dir = os.path.abspath(os.path.dirname(__file__))
 
 
 db = SQLAlchemy()
+
 
 # --- Models ---
 class User(db.Model):
@@ -52,5 +53,7 @@ class Comment(db.Model):
     user_id = db.Column(db.Integer, db.ForeignKey('user.user_id'), nullable=False)
     event_id = db.Column(db.Integer, db.ForeignKey('event.event_id'), nullable=False)
     date_posted = db.Column(db.DateTime, default=datetime.utcnow)
+
+
 
 
