@@ -32,11 +32,79 @@ class Event:
         self.comments = []
 
 # Dummy Event Data
+# eventDetail.py (or wherever you define your dummy data)
 events = {
-    "1": Event("1", "Technology Executive Summit", "Brisbane, Australia", "14 Mar, 2025", "7:00 PM – 10:00 PM", "Steve Jobs", "img/Tech image.jpg", "Booking Available", "Join us at the Technology Executive Summit, an exclusive gathering..."),
-    "2": Event("2", "FutureTech Innovation Forum", "New York, U.S", "21 Mar, 2025", "10:00 AM – 4:00 PM", "Elon Musk", "img/Tech image6.jpg", "Booking Available", "Dive into future tech innovations..."),
-    "3": Event("3", "AI & Automation Expo 2025", "Boston, U.S", "18 Apr, 2025", "9:00 AM – 5:00 PM", "Ada Lovelace", "img/Tech image5.jpg", "Booking Available", "Explore the power of AI and automation...")
+    "1": Event(
+        "1",
+        "Technology Executive Summit",
+        "Brisbane, Australia",
+        "14 Mar, 2025",
+        "7:00 PM – 10:00 PM",
+        "Steve Jobs",
+        "img/Tech image.jpg",
+        "Booking Available",
+        "Join us at the Technology Executive Summit, an exclusive gathering..."
+    ),
+    "2": Event(
+        "2",
+        "FutureTech Innovation Forum",
+        "New York, U.S",
+        "21 Mar, 2025",
+        "10:00 AM – 4:00 PM",
+        "Elon Musk",
+        "img/Tech image6.jpg",
+        "Booking Available",
+        "Dive into future tech innovations..."
+    ),
+    "3": Event(
+        "3",
+        "AI & Automation Expo 2025",
+        "Boston, U.S",
+        "18 Apr, 2025",
+        "9:00 AM – 5:00 PM",
+        "Ada Lovelace",
+        "img/Tech image5.jpg",
+        "Booking Available",
+        "Explore the power of AI and automation..."
+    ),
+
+    # ——— three new entries below ———
+
+    "4": Event(
+        "4",
+        "Global Blockchain Summit",
+        "London, U.K.",
+        "05 Jun, 2025",
+        "9:00 AM – 5:00 PM",
+        "Satoshi Nakamoto",
+        "img/Tech image7.jpg",
+        "Booking Available",
+        "Discover the latest trends in blockchain, DeFi, and decentralized systems."
+    ),
+    "5": Event(
+        "5",
+        "Cybersecurity Essentials Workshop",
+        "Sydney, Australia",
+        "12 Jun, 2025",
+        "10:00 AM – 1:00 PM",
+        "Bruce Schneier",
+        "img/Tech image8.jpg",
+        "Booking Available",
+        "A hands-on workshop covering modern threats, defence strategies, and best practices."
+    ),
+    "6": Event(
+        "6",
+        "AI Ethics Forum",
+        "San Francisco, U.S",
+        "20 Jun, 2025",
+        "2:00 PM – 6:00 PM",
+        "Timnit Gebru",
+        "img/Tech image9.jpg",
+        "Booking Available",
+        "Join experts discussing the ethical implications and governance of AI."
+    ),
 }
+
 
 def init_eventDetail(app):
     @app.route('/event/<event_id>', methods=['GET', 'POST'])
