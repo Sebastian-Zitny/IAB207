@@ -5,6 +5,7 @@ from myBooking import init_myBooking
 from eventDetail import init_eventDetail
 
 app = Flask(__name__)
+app.secret_key = 'secret'
 
 init_createEvents(app)
 
@@ -24,4 +25,4 @@ def Home():
 
 
 if __name__ == '__main__':
-    app.run(debug=False, use_reloader=False)
+    app.run(debug=True, use_reloader=True)
