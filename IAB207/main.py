@@ -7,6 +7,7 @@ from Register import init_Register
 from logIn import init_logIn
 
 app = Flask(__name__)
+app.secret_key = 'secret'
 
 init_createEvents(app)
 
@@ -30,4 +31,4 @@ def Home():
 
 
 if __name__ == '__main__':
-    app.run(debug=False, use_reloader=False)
+    app.run(debug=True, use_reloader=True)
