@@ -1,0 +1,42 @@
+body {
+    background-color: #f3f0ff;
+}
+
+.signup-btn {
+    background-color: #4A22F4;
+  }
+
+.view-events-btn {
+    padding: 0.5rem 2.5rem;
+    font-size: 1.1rem;
+    background-color: #4A22F4;
+    border: none;
+  }
+
+.side-bar {
+    background-color: #f6f1f1f1;
+}
+
+.event-title {
+    margin-left: 20px;
+    color: #06066C;
+  }
+
+
+
+  .drop-down-arrow {
+    cursor: pointer;
+    color: #06066C;
+  }
+
+  .form {
+    margin-left: 18px;
+  }
+
+  .event-img {
+    height: 200px;          
+    object-fit: cover;    
+    width: 100%;           
+    border-top-left-radius: 0.375rem; 
+    border-top-right-radius: 0.375rem;
+  }

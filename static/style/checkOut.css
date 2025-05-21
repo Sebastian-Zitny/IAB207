@@ -1,0 +1,40 @@
+body {
+    background-color: #f3f0ff;
+}
+
+.signup-btn {
+    background-color: #4A22F4;
+  }
+
+  .contact-info {
+    background-color: #fefeff;
+    padding: 2px 5px 10px;
+
+    height: 84%;
+  }
+
+.right-section {
+    background-color: #F6F3F3;
+}
+
+.event-img {
+    height: 400px;          
+    object-fit: cover;    
+    width: 100%;           
+    border-top-left-radius: 0.375rem; 
+    border-top-right-radius: 0.375rem;
+  }
+
+.buy-btn {
+    background-color: #BAAFE7;
+    color: #000000;
+    font-size: larger;
+    font-weight: bold;
+    justify-items: center;
+    transition: background-color 0.3s ease;
+}
+
+.buy-btn:hover {
+  background-color: #BAAFE7; 
+  color: #ffffff;
+}
