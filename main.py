@@ -31,7 +31,7 @@ init_createEvents(app)
 init_checkOut(app)
 
 init_myBooking(app)
-# 
+
 init_eventDetail(app)
 
 init_Register(app)

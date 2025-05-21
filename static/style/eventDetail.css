@@ -1,0 +1,31 @@
+body {
+    background-color: #f3f0ff;
+}
+
+.event-img {
+    height: 300px;          
+    object-fit: cover;    
+    width: 100%;           
+    border-top-left-radius: 0.375rem; 
+    border-top-right-radius: 0.375rem;
+  }
+
+
+.signup-btn {
+    background-color: #4A22F4;
+  }
+
+.booking-btn {
+    padding: 0.5rem 2.5rem;
+    font-size: 1.1rem;
+    background-color: #4A22F4;
+    border: none;
+  }
+
+  .title {
+    font-size: xxx-large;
+  } 
+
+  .comment-btn {
+    background-color: #4A22F4;
+  }

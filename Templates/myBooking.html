@@ -10,7 +10,7 @@
 </head>
 <body class="bg-light-purple">
 
-      <!-- Navbar -->
+  <!-- Navbar -->
   <nav class="navbar navbar-expand-lg bg-body-tertiary">
     <div class="container-fluid">
       <a class="navbar-brand fw-bold" href="index.html">Talknology</a>
@@ -22,62 +22,39 @@
           <li class="nav-item"><a class="nav-link " href="index.html">Home</a></li>
           <li class="nav-item"><a class="nav-link" href="createEvents.html">Create Events</a></li>
           <li class="nav-item"><a class="nav-link active" href="myBooking.html">My Bookings</a></li>
-           {% if session.user_id %}
-    <li class="nav-item">
-      <a class="nav-link" href="/logout">Log out</a>
-    </li>
-  {% else %}
-    <li class="nav-item">
-      <a class="nav-link" href="logIn.html">Log in</a>
-    </li>
-  {% endif %}
+          {% if session.user_id %}
+            <li class="nav-item"><a class="nav-link" href="/logout">Log out</a></li>
+          {% else %}
+            <li class="nav-item"><a class="nav-link" href="logIn.html">Log in</a></li>
+          {% endif %}
         </ul>
         <a class="btn btn-primary signup-btn" href="Register.html">Sign up</a>
       </div>
     </div>
   </nav>
 
-{% with messages = get_flashed_messages(with_categories=true) %}
-	{% if messages %}
-		<ul>
-			{% for category, message in messages %}
-				<li class="{{ category }}">{{ message }}</li>
-			{% endfor %}
-		</ul>
-	{% endif %}
-{% endwith %}
-
-
-<div class="container mt-5">
-  <h2 class="fw-bold mb-4">Register details</h2>
-
-  <div class="row g-4">
-
-    <div class="col-md-6">
-	
-	  <form method="POST">
-		<label for="Username">Username</label>
-		<input type="text" class="form-control" name="username" id="username" placeholder="Enter Username" required>
-		<label for="Email">Email</label>
-		<input type="email" class="form-control" name="email" id="email" placeholder="Enter Email" required>
-		<label for="Password">Password</label>
-		<input type="Password" class="form-control" name="password" id="password" placeholder="Enter Password" required>
-
-		<button type="submit">Register</button>
-	  </form>
-		
+  <!-- Booking History -->
+  <div class="container mt-5">
+    <h2 class="fw-bold mb-4">My Booking History</h2>
+    <div class="row g-4">
+      {% for booking in bookings %}
+      <div class="col-md-6">
+        <div class="card shadow-sm">
+          <img src="{{ booking['image_url'] }}" class="card-img-top" alt="Event Image" />
+          <div class="card-body">
+            <h5 class="card-title fw-bold">{{ booking['title'] }}</h5>
+            <p class="card-text"><strong>Order ID:</strong> #TX{{ booking['event_id'] }}</p>
+            <p class="card-text text-muted">
+              <i class="bi bi-calendar-event"></i> {{ booking['date'] }},
+              <i class="bi bi-clock"></i> {{ booking['start_time'] }}
+            </p>
+            <p class="card-text"><i class="bi bi-geo-alt"></i> {{ booking['venue'] }}</p>
+          </div>
+        </div>
+      </div>
+      {% endfor %}
+    </div>
   </div>
-</div>
 
 </body>
 </html>
-
-
-</body>
-</html>
-
-
-
-
-
-  
