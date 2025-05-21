@@ -5,8 +5,8 @@ from databaseCreator import db, Event
 
 def init_createEvents(app):
 
-    @app.route('/create-event', methods=['GET', 'POST'])
-    @login_required  
+    @app.route('/createEvents.html', methods=['GET', 'POST'])
+    #@login_required  
     def create_event():
         form = CreateEventForm()
 
@@ -29,4 +29,5 @@ def init_createEvents(app):
             flash('✅ Event created successfully!', 'success')
             return redirect(url_for('Home'))
 
-        return render_template('createEvents.html')
+        # ✅ Pass form to template here
+        return render_template('createEvents.html', form=form)
