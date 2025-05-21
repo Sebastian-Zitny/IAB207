@@ -36,10 +36,15 @@ def init_createEvents(app):
                 conn.commit()
                 conn.close()
 
-                flash("Event created successfully!", "success")
+                flash("✅ Event created successfully!", "success")
                 return redirect('/createEvents.html')
             except Exception as e:
-                flash(f"Error creating event: {e}", "danger")
+                flash(f"❌ Error creating event: {e}", "danger")
                 return redirect('/createEvents.html')
 
-        return render_template('createEvents.html')
+        # 🟢 Fetch existing events created by the current user
+        conn = get_db_connection()
+        events = conn.execute('SELECT * FROM event WHERE owner_id = ?', (session['user_id'],)).fetchall()
+        conn.close()
+
+        return render_template('createEvents.html', events=events)
