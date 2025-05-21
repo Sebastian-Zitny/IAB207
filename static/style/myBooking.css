@@ -1,0 +1,12 @@
+body {
+    background-color: #f3f0ff;
+}
+
+.signup-btn {
+    background-color: #4A22F4;
+  }
+
+.card img {
+    height: 200px;
+    object-fit: cover;
+  }
