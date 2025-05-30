@@ -1,107 +1,152 @@
-	<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>My Bookings | Talknology</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Checkout | Talknology</title>
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
   <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css" rel="stylesheet">
-  <link rel="stylesheet" href="static/style/checkOut.css">
+  <link rel="stylesheet" href="{{ url_for('static', filename='style/checkOut.css') }}">
 </head>
 <body class="bg-light-purple">
 
-      <!-- Navbar -->
+  <!-- Navbar -->
   <nav class="navbar navbar-expand-lg bg-body-tertiary">
     <div class="container-fluid">
-      <a class="navbar-brand fw-bold" href="index.html">Talknology</a>
+      <a class="navbar-brand fw-bold" href="{{ url_for('Home') }}">Talknology</a>
       <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
         <span class="navbar-toggler-icon"></span>
       </button>
       <div class="collapse navbar-collapse justify-content-end" id="navbarNav">
         <ul class="navbar-nav me-3">
-          <li class="nav-item"><a class="nav-link active" href="index.html">Home</a></li>
-          <li class="nav-item"><a class="nav-link" href="createEvents.html">Create Events</a></li>
-          <li class="nav-item"><a class="nav-link" href="myBooking.html">My Bookings</a></li>
-           {% if session.user_id %}
-    <li class="nav-item">
-      <a class="nav-link" href="/logout">Log out</a>
-    </li>
-  {% else %}
-    <li class="nav-item">
-      <a class="nav-link" href="logIn.html">Log in</a>
-    </li>
-  {% endif %}
+          <li class="nav-item"><a class="nav-link active" href="{{ url_for('Home') }}">Home</a></li>
+          <li class="nav-item"><a class="nav-link" href="{{ url_for('createEvents') }}">Create Events</a></li>
+          <li class="nav-item"><a class="nav-link" href="{{ url_for('myBooking') }}">My Bookings</a></li>
+          {% if session.get('user_id') %}
+            <li class="nav-item"><a class="nav-link" href="{{ url_for('logOut') }}">Log out</a></li>
+          {% else %}
+            <li class="nav-item"><a class="nav-link" href="{{ url_for('logIn') }}">Log in</a></li>
+          {% endif %}
         </ul>
-        <a class="btn btn-primary signup-btn" href="Register.html">Sign up</a>
+        <a class="btn btn-primary signup-btn" href="{{ url_for('Register') }}">Sign up</a>
       </div>
     </div>
   </nav>
 
-    <!-- Checkout Content -->
-<div class="container-fluid">
+  <!-- Checkout Content -->
+  <div class="container-fluid">
     <div class="row">
+
+      <!-- Left Section: Form -->
       <div class="col-md-7 px-0">
-        <!-- Left Section -->
-        <div class="position-relative mb-4">
-            <a href="eventDetail.html" class="text-dark position-absolute"><i class="bi bi-arrow-left fs-3"></i></a>
-            <h1 class="fw-bold my-3 text-center display-4 ">Checkout</h1>
-        </div>
-        <!-- Contact Info -->
-        <div class="contact-info">
+        <form method="post" action="{{ url_for('checkOut', event_id=event['event_id']) }}">
+          <!-- Back Link & Title -->
+          <div class="position-relative mb-4">
+            <a href="{{ url_for('event_detail', event_id=event['event_id']) }}"
+               class="text-dark position-absolute">
+              <i class="bi bi-arrow-left fs-3"></i>
+            </a>
+            <h1 class="fw-bold my-3 text-center display-4">Checkout</h1>
+          </div>
+
+          <!-- Contact Info (static placeholders) -->
+          <div class="contact-info">
             <div class="row g-3">
-                <h3 class="fw-bold mt-4">Contact Information</h3>
-                <div class="col-md-6"><input type="text" class="form-control" placeholder="First name*"></div>
-                <div class="col-md-6"><input type="text" class="form-control" placeholder="Last name*"></div>
-                <div class="col-md-12"><input type="email" class="form-control" placeholder="Email address*"></div>
-                <div class="col-md-12"><input type="text" class="form-control" placeholder="Phone number*"></div>
+              <h3 class="fw-bold mt-4">Contact Information</h3>
+              <div class="col-md-6">
+                <input name="first_name" type="text" class="form-control" placeholder="First name*">
               </div>
-        
-              <!-- Ticket number -->
-              <h5 class="fw-bold mt-4">Number of Tickets</h5>
-              <div class="col-md-3">
-                <input type="number" class="form-control" min="1" max="10" value="2">
+              <div class="col-md-6">
+                <input name="last_name" type="text" class="form-control" placeholder="Last name*">
               </div>
-        
-              <!-- Ticket1 Info -->
-              <h5 class="fw-bold mt-4">Ticket 1 Information</h5>
-              <div class="row g-3">
-                <div class="col-md-6"><input type="text" class="form-control" placeholder="First name*"></div>
-                <div class="col-md-6"><input type="text" class="form-control" placeholder="Last name*"></div>
+              <div class="col-md-12">
+                <input name="email" type="email" class="form-control" placeholder="Email address*">
               </div>
-              <!-- Ticket2 Info -->
-              <h5 class="fw-bold mt-4">Ticket 2 Information</h5>
-              <div class="row g-3">
-                <div class="col-md-6"><input type="text" class="form-control" placeholder="First name*"></div>
-                <div class="col-md-6"><input type="text" class="form-control" placeholder="Last name*"></div>
+              <div class="col-md-12">
+                <input name="phone" type="text" class="form-control" placeholder="Phone number*">
               </div>
-            </div>
-        </div>
-  
-      <!-- Right Section -->
-      <div class="col-md-5 order-summary px-0 mb-2 right-section">
-        <div class="position-relative text-center mb-3">
-            <img src="static/img/Tech image.jpg" class="img-fluid rounded event-img" alt="Event" />
-            <div class="position-absolute top-50 start-50 translate-middle w-100 px-3">
-              <h5 class="text-white fw-bold display-6">Technology Executive Summit</h5>
-              <p class="text-white fs-5">Brisbane, Australia</p>
             </div>
           </div>
-        <div class="p-3">
-            <h3>Order Summary</h3>
-            <hr>
-            <p>2 x General Admission <span class="float-end">$50</span></p>
-            <p>Delivery * eTicket <span class="float-end">$0</span></p>
-            <hr>
-            <h6 class="fw-bold">Total <span class="float-end">$50</span></h6>
-            <div class="text-center">
-            <a href="myBooking.html" class="btn mt-4 w-100 buy-btn">Pay by card</a>
+
+          <!-- Ticket number -->
+          <h5 class="fw-bold mt-4">Number of Tickets</h5>
+          <div class="col-md-3 mb-4">
+            <input
+              type="number"
+              id="quantity"
+              name="quantity"
+              class="form-control"
+              min="1"
+              value="{{ request.form.quantity|default(1)|int }}"
+              required
+            >
+          </div>
+
+          <!-- Ticket1 Info (static placeholders) -->
+          <h5 class="fw-bold mt-4">Ticket 1 Information</h5>
+          <div class="row g-3">
+            <div class="col-md-6">
+              <input type="text" class="form-control" placeholder="First name*">
             </div>
+            <div class="col-md-6">
+              <input type="text" class="form-control" placeholder="Last name*">
+            </div>
+          </div>
+
+          <!-- Ticket2 Info (static placeholders) -->
+          <h5 class="fw-bold mt-4">Ticket 2 Information</h5>
+          <div class="row g-3">
+            <div class="col-md-6">
+              <input type="text" class="form-control" placeholder="First name*">
+            </div>
+            <div class="col-md-6">
+              <input type="text" class="form-control" placeholder="Last name*">
+            </div>
+          </div>
+
+          <!-- Submit Button -->
+          <div class="mt-4">
+            <button type="submit" class="btn btn-success w-100">Confirm Booking</button>
+          </div>
+        </form>
+      </div>
+
+      <!-- Right Section: Order Summary -->
+      <div class="col-md-5 order-summary px-0 mb-2 right-section">
+        <div class="position-relative text-center mb-3">
+          <img
+            src="{{ event['image_url'] }}"
+            class="img-fluid rounded event-img"
+            alt="{{ event['title'] }}"
+          />
+          <div class="position-absolute top-50 start-50 translate-middle w-100 px-3">
+            <h5 class="text-white fw-bold display-6">{{ event['title'] }}</h5>
+            <p class="text-white fs-5">{{ event['venue'] }}</p>
+          </div>
+        </div>
+        <div class="p-3">
+          <h3>Order Summary</h3>
+          <hr>
+          <p>
+            {{ request.form.quantity|default(1)|int }} × General Admission
+            <span class="float-end">$50</span>
+          </p>
+          <p>
+            Delivery * eTicket
+            <span class="float-end">$0</span>
+          </p>
+          <hr>
+          <h6 class="fw-bold">Total
+            <span class="float-end">
+              ${{ (request.form.quantity|default(1)|int) * 50 }}
+            </span>
+          </h6>
         </div>
       </div>
-  
+
     </div>
   </div>
-  
-  </body>
-  </html>
-  
+
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>

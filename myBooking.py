@@ -1,5 +1,4 @@
-from flask import Flask, render_template
-from flask import request, render_template, redirect, url_for, session
+from flask import render_template, request, redirect, url_for, session
 import sqlite3
 import os
 
@@ -10,7 +9,6 @@ def get_db_connection():
     conn.row_factory = sqlite3.Row
     return conn
 
-
 def init_myBooking(app):
     @app.route('/myBooking.html')
     def myBooking():
@@ -18,14 +16,22 @@ def init_myBooking(app):
             return redirect(url_for('logIn'))
 
         conn = get_db_connection()
-        events = conn.execute("""
-            SELECT event_id, title, date, image_url, venue
-            FROM event
-            WHERE owner_id = ?
-            ORDER BY date DESC
+        bookings = conn.execute("""
+          SELECT
+                b.booking_id,
+                e.event_id,
+                e.title,
+                e.date,
+                e.start_time,
+                e.image_url,
+                e.venue,
+                b.quantity,
+                b.date_booked
+            FROM booking b
+            JOIN event   e ON b.event_id = e.event_id
+            WHERE b.user_id = ?
+            ORDER BY b.date_booked DESC
         """, (session['user_id'],)).fetchall()
         conn.close()
 
-        return render_template('myBooking.html', bookings=events)
-
-
+        return render_template('myBooking.html', bookings=bookings)
