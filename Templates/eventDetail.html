@@ -13,36 +13,52 @@
   <!-- Navbar -->
   <nav class="navbar navbar-expand-lg bg-body-tertiary">
     <div class="container-fluid">
-      <a class="navbar-brand fw-bold" href="/">Talknology</a>
+      <a class="navbar-brand fw-bold" href="{{ url_for('Home') }}">Talknology</a>
       <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
         <span class="navbar-toggler-icon"></span>
       </button>
       <div class="collapse navbar-collapse justify-content-end" id="navbarNav">
         <ul class="navbar-nav me-3">
-          <li class="nav-item"><a class="nav-link active" href="index.html">Home</a></li>
-          <li class="nav-item"><a class="nav-link" href="/createEvents.html">Create Events</a></li>
-          <li class="nav-item"><a class="nav-link" href="/myBooking.html">My Bookings</a></li>
-            {% if session.user_id %}
-    <li class="nav-item">
-      <a class="nav-link" href="/logout">Log out</a>
-    </li>
-  {% else %}
-    <li class="nav-item">
-      <a class="nav-link" href="/logIn.html">Log in</a>
-    </li>
-  {% endif %}
+          <li class="nav-item">
+            <a class="nav-link active" href="{{ url_for('Home') }}">Home</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="{{ url_for('createEvents') }}">Create Events</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="{{ url_for('myBooking') }}">My Bookings</a>
+          </li>
+          {% if session.get('user_id') %}
+            <li class="nav-item">
+              <a class="nav-link" href="{{ url_for('logOut') }}">Log out</a>
+            </li>
+          {% else %}
+            <li class="nav-item">
+              <a class="nav-link" href="{{ url_for('logIn') }}">Log in</a>
+            </li>
+          {% endif %}
         </ul>
-        <a class="btn btn-primary signup-btn" href="/Register.html">Sign up</a>
+        <a class="btn btn-primary signup-btn" href="{{ url_for('Register') }}">Sign up</a>
       </div>
     </div>
   </nav>
 
+  <!-- Banner & Book Button -->
   <div class="position-relative text-white text-center">
     <img src="{{ url_for('static', filename=event.image) }}" class="event-img" alt="Event Banner">
     <div class="position-absolute top-50 start-50 translate-middle">
       <h1 class="fw-bold display-5 text-shadow title">{{ event.title }}</h1>
       <h4 class="fw-semibold text-shadow">{{ event.city }}</h4>
-      <a href="/checkOut.html" class="btn btn-primary mt-3 px-4 py-2 booking-btn">Book Event</a>
+      {% if event.status not in ['Inactive','Sold Out','Cancelled'] %}
+        <a
+          href="{{ url_for('checkOut', event_id=event.id) }}"
+          class="btn btn-primary mt-3 px-4 py-2 booking-btn"
+        >
+          Book Tickets
+        </a>
+      {% else %}
+        <span class="badge bg-secondary fs-6">{{ event.status }}</span>
+      {% endif %}
     </div>
   </div>
 
@@ -95,7 +111,6 @@
           <p>No comments yet.</p>
         {% endfor %}
 
-        {# only show form to logged-in users #}
         {% if session.get('user_id') %}
           <form method="POST" class="mt-3">
             {{ form.hidden_tag() }}
@@ -106,9 +121,7 @@
             {{ form.submit(class="btn btn-primary comment-btn") }}
           </form>
         {% else %}
-          <p class="mt-3">
-            Log in to leave a comment.
-          </p>
+          <p class="mt-3">Log in to leave a comment.</p>
         {% endif %}
       </div>
     </div>
