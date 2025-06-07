@@ -54,6 +54,6 @@ def init_checkOut(app):
 
         if event is None:
             flash("Event not found.", "warning")
-            return redirect(url_for('Home'))
+            return redirect(url_for('home'))
 
         return render_template('checkOut.html', event=event)

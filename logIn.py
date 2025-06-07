@@ -1,4 +1,4 @@
-from flask import render_template, request, redirect, url_for, flash, session, redirect
+from flask import render_template, request, redirect, url_for, flash, session
 from databaseCreator import db, User
 
 def init_logIn(app):

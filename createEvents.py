@@ -36,7 +36,7 @@ def init_createEvents(app):
                 status = 'Open'
                 owner_id = session['user_id']
 
-                # Handle image upload
+                # handle image upload
                 image_file = request.files.get('image_url')
                 image_url = None
                 if image_file and allowed_file(image_file.filename):
@@ -47,7 +47,7 @@ def init_createEvents(app):
                     flash("❌ Invalid image file type.", "danger")
                     return redirect(url_for('createEvents'))
 
-                # Save to DB
+                # save to DB
                 conn = get_db_connection()
                 conn.execute("""
                     INSERT INTO event (

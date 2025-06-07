@@ -17,7 +17,7 @@ def init_myBooking(app):
 
         conn = get_db_connection()
         bookings = conn.execute("""
-          SELECT
+            SELECT
                 b.booking_id,
                 e.event_id,
                 e.title,
@@ -28,7 +28,7 @@ def init_myBooking(app):
                 b.quantity,
                 b.date_booked
             FROM booking b
-            JOIN event   e ON b.event_id = e.event_id
+            JOIN event e ON b.event_id = e.event_id
             WHERE b.user_id = ?
             ORDER BY b.date_booked DESC
         """, (session['user_id'],)).fetchall()

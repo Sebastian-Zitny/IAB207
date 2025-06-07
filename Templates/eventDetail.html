@@ -13,29 +13,19 @@
   <!-- Navbar -->
   <nav class="navbar navbar-expand-lg bg-body-tertiary">
     <div class="container-fluid">
-      <a class="navbar-brand fw-bold" href="{{ url_for('Home') }}">Talknology</a>
+      <a class="navbar-brand fw-bold" href="{{ url_for('home') }}">Talknology</a>
       <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
         <span class="navbar-toggler-icon"></span>
       </button>
       <div class="collapse navbar-collapse justify-content-end" id="navbarNav">
         <ul class="navbar-nav me-3">
-          <li class="nav-item">
-            <a class="nav-link active" href="{{ url_for('Home') }}">Home</a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link" href="{{ url_for('createEvents') }}">Create Events</a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link" href="{{ url_for('myBooking') }}">My Bookings</a>
-          </li>
+          <li class="nav-item"><a class="nav-link active" href="{{ url_for('home') }}">Home</a></li>
+          <li class="nav-item"><a class="nav-link" href="{{ url_for('createEvents') }}">Create Events</a></li>
+          <li class="nav-item"><a class="nav-link" href="{{ url_for('myBooking') }}">My Bookings</a></li>
           {% if session.get('user_id') %}
-            <li class="nav-item">
-              <a class="nav-link" href="{{ url_for('logOut') }}">Log out</a>
-            </li>
+            <li class="nav-item"><a class="nav-link" href="{{ url_for('logOut') }}">Log out</a></li>
           {% else %}
-            <li class="nav-item">
-              <a class="nav-link" href="{{ url_for('logIn') }}">Log in</a>
-            </li>
+            <li class="nav-item"><a class="nav-link" href="{{ url_for('logIn') }}">Log in</a></li>
           {% endif %}
         </ul>
         <a class="btn btn-primary signup-btn" href="{{ url_for('Register') }}">Sign up</a>
@@ -45,17 +35,21 @@
 
   <!-- Banner & Book Button -->
   <div class="position-relative text-white text-center">
-    <img src="{{ url_for('static', filename=event.image) }}" class="event-img" alt="Event Banner">
+    {% if event.image_url %}
+      {% if 'Tech' in event.image_url %}
+        <img src="{{ url_for('static', filename='uploads/' ~ event.image_url) }}" class="event-img" alt="{{ event.title }}">
+      {% else %}
+        <img src="{{ url_for('static', filename='uploads/' ~ event.image_url) }}" class="event-img" alt="{{ event.title }}">
+      {% endif %}
+    {% else %}
+      <img src="https://via.placeholder.com/800x400?text=No+Image" class="event-img" alt="No Image">
+    {% endif %}
+
     <div class="position-absolute top-50 start-50 translate-middle">
       <h1 class="fw-bold display-5 text-shadow title">{{ event.title }}</h1>
-      <h4 class="fw-semibold text-shadow">{{ event.city }}</h4>
+      <h4 class="fw-semibold text-shadow">{{ event.venue }}</h4>
       {% if event.status not in ['Inactive','Sold Out','Cancelled'] %}
-        <a
-          href="{{ url_for('checkOut', event_id=event.id) }}"
-          class="btn btn-primary mt-3 px-4 py-2 booking-btn"
-        >
-          Book Tickets
-        </a>
+        <a href="{{ url_for('checkOut', event_id=event.event_id) }}" class="btn btn-primary mt-3 px-4 py-2 booking-btn">Book Tickets</a>
       {% else %}
         <span class="badge bg-secondary fs-6">{{ event.status }}</span>
       {% endif %}
@@ -71,15 +65,15 @@
       </div>
       <div class="p-3">
         <i class="bi bi-geo-alt fs-4"></i>
-        <p class="mb-0">{{ event.city }}</p>
+        <p class="mb-0">{{ event.venue }}</p>
       </div>
       <div class="p-3">
         <i class="bi bi-clock fs-4"></i>
-        <p class="mb-0">{{ event.time }}</p>
+        <p class="mb-0">{{ event.start_time }}</p>
       </div>
       <div class="p-3">
         <i class="bi bi-people-fill fs-4"></i>
-        <p class="mb-0">{{ event.speaker }}</p>
+        <p class="mb-0">{{ event.speaker or 'TBA' }}</p>
       </div>
       <div class="p-3">
         <i class="bi bi-check-circle-fill text-success fs-4"></i>
@@ -91,7 +85,7 @@
       <!-- Description -->
       <div class="mt-5">
         <h2 class="fw-bold">{{ event.title }}</h2>
-        <p class="text-danger">{{ event.date }} | {{ event.time }}</p>
+        <p class="text-danger">{{ event.date }} | {{ event.start_time }}</p>
         <p>{{ event.description }}</p>
       </div>
 
