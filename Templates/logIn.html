@@ -10,7 +10,6 @@
 </head>
 <body class="bg-light-purple">
 
-  <!-- Navbar (unchanged) -->
   <nav class="navbar navbar-expand-lg bg-body-tertiary">
     <div class="container-fluid">
       <a class="navbar-brand fw-bold" href="index.html">Talknology</a>
@@ -41,7 +40,6 @@
   <div class="container mt-5" style="max-width: 400px;">
     <h2 class="fw-bold mb-4 text-center">Log In</h2>
 
-    <!-- Flash messages -->
     {% with messages = get_flashed_messages(with_categories=true) %}
       {% if messages %}
         {% for category, msg in messages %}
@@ -75,7 +73,7 @@
           required>
       </div>
 
-      <button type="submit" class="btn btn-primary w-100">Submit</button>
+      <button type="submit" class="btn btn-primary w-100">Login</button>
     </form>
   </div>
 
