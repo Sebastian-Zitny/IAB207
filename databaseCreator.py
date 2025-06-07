@@ -30,7 +30,7 @@ class Event(db.Model):
     start_time = db.Column(db.Time)
     end_time = db.Column(db.Time)
     venue = db.Column(db.String(200))
-    image_url = db.Column(db.String(300))
+    image_url = db.Column(db.String(255))
     category = db.Column(db.String(50))
     status = db.Column(db.String(20))  # Open, Cancelled, Sold Out, Inactive
     owner_id = db.Column(db.Integer, db.ForeignKey('user.user_id'), nullable=False)

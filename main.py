@@ -7,7 +7,7 @@ from eventDetail import init_eventDetail
 from Register import init_Register
 from logIn import init_logIn, init_logOut
 from databaseCreator import db 
-
+from databaseCreator import Event 
 
 
 app = Flask(__name__)
@@ -40,19 +40,22 @@ init_Register(app)
 
 init_logIn(app)
 
-@app.route('/')
-def default():
-    return render_template('index.html')
+from sqlalchemy import and_
 
+@app.route('/')
 @app.route('/index.html')
-def Home():
-    return render_template('index.html')
+def home():
+    created_events = Event.query.filter(Event.date.isnot(None)).order_by(Event.event_id.asc()).all()
+    return render_template('index.html', created_events=created_events)
+
+
 
 @app.route('/logout')
 def logOut():
     session.clear()
     flash("You’ve been logged out.", "success")
     return redirect('/')   # back to Home
+
 
 if __name__ == '__main__':
     app.run(debug=False, use_reloader=False)

@@ -238,7 +238,37 @@
                             <a href="/event/6" class="btn btn-outline-primary w-100" style="background-color: #4A22F4; color: #ffffff;">Join Event</a>
                         </div>
                     </div>
-                </div>    
+                </div>  
+                <!-- Created Events -->
+                {% if created_events %}
+                {% for event in created_events %}
+                <div class="col">
+                  <div class="card" style="min-height: 300px;">
+                    <div class="position-relative">
+                      {% if event.image_url %}
+                        <img src="{{ url_for('static', filename='uploads/' ~ event.image_url) }}" class="card-img-top event-img" alt="{{ event.title }}">
+                      {% else %}
+                        <img src="https://via.placeholder.com/400x200?text=No+Image" class="card-img-top event-img" alt="No Image">
+                      {% endif %}
+                      <span class="badge bg-info text-dark position-absolute start-0 m-2">User Event</span>
+                    </div>
+                    <div class="card-footer bg-white border-0">
+                      <h5 class="fs-6 mb-4">{{ event.title }}</h5>
+                      <p class="mb-2">{{ event.venue }}</p>
+                      <div class="d-flex align-items-center gap-2 small mb-3">
+                        <div><i class="bi bi-clock-fill"></i> {{ event.start_time }}</div>
+                        <div><i class="bi bi-calendar-check-fill"></i> {{ event.date }}</div>
+                        <div><i class="bi bi-check-circle-fill text-success me-1"></i> {{ event.status }}</div>
+                      </div>
+                      <a href="/event/{{ event.event_id }}" class="btn btn-outline-primary w-100" style="background-color: #4A22F4; color: #ffffff;">Join Event</a>
+                    </div>
+                  </div>
+                </div>
+                {% endfor %}
+              {% endif %}
+              
+
+  
             </div>
         </div>
     </div>
