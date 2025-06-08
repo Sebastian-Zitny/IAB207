@@ -21,7 +21,7 @@
           <li class="nav-item"><a class="nav-link" href="{{ url_for('createEvents') }}">Create Events</a></li>
           <li class="nav-item"><a class="nav-link" href="{{ url_for('myBooking') }}">My Bookings</a></li>
           {% if session.user_id %}
-            <li class="nav-item"><a class="nav-link" href="{{ url_for('logout') }}">Log out</a></li>
+            <li class="nav-item"><a class="nav-link" href="{{ url_for('logOut') }}">Log out</a></li>
           {% else %}
             <li class="nav-item"><a class="nav-link" href="{{ url_for('logIn') }}">Log in</a></li>
           {% endif %}
