@@ -1,0 +1,62 @@
+Sebastian-Zitny (24):
+      Initial commit
+      Create static folder
+      adding folder
+      sadads
+      added start of flask
+      img working
+      Update main.py
+      added db creator
+      finished all python files setup
+      fixed db maker
+      Create index.py
+      fixed
+      finally fixed databases
+      added login
+      login and register front end
+      Merge branch 'main' of https://github.com/Sebastian-Zitny/IAB207
+      fixed merging errors
+      added register and pushing data to database
+      added login
+      added login
+      changed debug mode
+      added to db
+      Merge branch 'main' of https://github.com/Sebastian-Zitny/IAB207
+      fixed style of register
+
+Temuujin Zorigtbadam (14):
+      AT2 scratch
+      fas
+      adfa
+      cleared
+      database creater updated
+      database updated
+      Merge branch 'main' of https://github.com/Sebastian-Zitny/IAB207
+      createEvent
+      Merge branch 'main' of https://github.com/Sebastian-Zitny/IAB207
+      Creating event page
+      Merge branch 'main' of https://github.com/Sebastian-Zitny/IAB207
+      fixef
+      Fixed create event
+      Fixed everything
+
+wtfshivam (3):
+      Event creation backend and Booking History
+      Merge branch 'master'  the commit.
+      fixed mybooking page and checkout page
+
+yejun0604 (13):
+      uploaded a folder
+      Set up event detail comments, working version before DB integration
+      Merge pull request #1 from Sebastian-Zitny/comments-feature
+      Update database.db
+      added model
+      Delete __init__.py
+      moved model
+      added datetime
+      changed Nav bar(added logout), connect db for comment
+      fixed nav bar in eventDetail.html
+      added dummy data for events
+      binary file has changed
+      Bibary file has changed
+
