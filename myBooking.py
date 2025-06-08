@@ -13,7 +13,7 @@ def init_myBooking(app):
     @app.route('/myBooking.html')
     def myBooking():
         if 'user_id' not in session:
-            flash("You must be logged in to create an event.", "danger")
+            flash("You must be logged in to check bookings.", "danger")
             return redirect(url_for('logIn'))
 
         conn = get_db_connection()
