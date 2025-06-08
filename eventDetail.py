@@ -10,7 +10,6 @@ from datetime import datetime
 from app.forms import CommentForm
 from databaseCreator import db, Comment as DBComment, Event as DBEvent, User as DBUser
 
-# Comment class for passing formatted data to template
 class Comment:
     def __init__(self, user, text, created_at):
         self.user = user
@@ -22,12 +21,10 @@ def init_eventDetail(app):
     def event_detail(event_id):
         form = CommentForm()
 
-        # Fetch event from the DB
         event = DBEvent.query.get(event_id)
         if not event:
             return "Event not found", 404
 
-        # Comment form submission
         if form.validate_on_submit():
             if 'user_id' not in session:
                 flash("You must be logged in to leave a comment.", "error")
@@ -43,7 +40,6 @@ def init_eventDetail(app):
             db.session.commit()
             return redirect(url_for('event_detail', event_id=event_id))
 
-        # Load comments
         db_comments = DBComment.query.filter_by(event_id=event_id).order_by(DBComment.date_posted.desc()).all()
         comments = [
             Comment(c.user.username, c.content, c.date_posted.strftime("%b %d, %Y"))

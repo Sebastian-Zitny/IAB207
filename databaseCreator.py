@@ -4,14 +4,12 @@ from flask_sqlalchemy import SQLAlchemy
 
 
 
-# Configure SQLite database
 base_dir = os.path.abspath(os.path.dirname(__file__))
 
 
 db = SQLAlchemy()
 
 
-# --- Models ---
 class User(db.Model):
     user_id = db.Column(db.Integer, primary_key=True)
     username = db.Column(db.String(100), nullable=False, unique=True)
@@ -32,7 +30,7 @@ class Event(db.Model):
     venue = db.Column(db.String(200))
     image_url = db.Column(db.String(255))
     category = db.Column(db.String(50))
-    status = db.Column(db.String(20))  # Open, Cancelled, Sold Out, Inactive
+    status = db.Column(db.String(20))  
     owner_id = db.Column(db.Integer, db.ForeignKey('user.user_id'), nullable=False)
     bookings = db.relationship('Booking', backref='event', lazy=True)
     comments = db.relationship('Comment', backref='event', lazy=True)

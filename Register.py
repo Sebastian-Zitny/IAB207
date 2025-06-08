@@ -10,7 +10,6 @@ def init_Register(app):
             email = request.form['email']
             password = request.form['password']
 
-            # Check if user already exists
             existing_user = User.query.filter(
                 (User.username == username) | (User.email == email)
             ).first()
@@ -18,13 +17,11 @@ def init_Register(app):
                 flash("Username or email already exists", "error")
                 return redirect(url_for('Register'))
 
-
-            # Create and save new user
             new_user = User(username=username, email=email, password=password)
             db.session.add(new_user)
             db.session.commit()
 
             flash("Registration successful!", "success")
-            return redirect(url_for('logIn'))  # Assuming you have a login route
+            return redirect(url_for('logIn'))
 
         return render_template('register.html')

@@ -8,15 +8,13 @@ def init_logIn(app):
             username = request.form['username']
             password = request.form['password']
 
-            # Find user by username and password
             user = User.query.filter_by(username=username, password=password).first()
 
             if user:
-                # Log the user in
                 session['user_id'] = user.user_id
                 session['username'] = user.username
                 flash("Login successful!", "success")
-                return redirect(url_for('myBooking'))  # or your target route
+                return redirect(url_for('myBooking'))
             else:
                 flash("Invalid username or password.", "error")
                 return redirect(url_for('logIn'))
@@ -28,4 +26,4 @@ def init_logOut(app):
     def logOut():
         session.clear()
         flash("You’ve been logged out.", "success")
-        return redirect('/')   # back to Home
+        return redirect('/')
